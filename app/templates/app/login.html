@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load myfilters %}
+{% block title %} LIT Review {% endblock %}
+{% block content %}
+
+    <div class="d-flex justify-content-evenly m-5">
+        <div class="text-center">
+            <p class="fs-3">Insrivez-vous maintenant</p>
+            <a href="{% url 'signup' %}" class="btn btn-secondary">S'inscrire</a>
+        </div>
+        <div>
+            <p class="text-center mb-4 fs-3">Connectez-vous</p>
+            <form method="post">{% csrf_token %}
+                {% for input in form %}
+                    {{ input|addclass:'form-control mx-0 mb-3'}}
+                {% endfor %}
+                <button class="btn btn-primary mx-0 float-end " type="submit" >Se connecter</button>
+            </form>
+        </div>
+    </div>
+
+
+{% endblock %}
