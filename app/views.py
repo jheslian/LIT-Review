@@ -1,11 +1,13 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import SignupForm, TicketForm, ReviewForm
 from django.conf import settings
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from .models import UserFollows, Ticket, Review
 
 
 # Create your views here.
@@ -15,14 +17,11 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('flux')
     if request.method == 'POST':
-        print("1", request.POST)
         form = AuthenticationForm(data=request.POST)
         if form.is_valid():
-            print("2")
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
-            print("us", user)
             if user is not None:
                 if user.is_active:
                     login(request, user)
@@ -52,6 +51,7 @@ def flux(request):
     return render(request, 'app/flux.html', context={})
 
 
+@login_required
 def create_ticket_view(request):
     form = TicketForm()
 
@@ -66,6 +66,7 @@ def create_ticket_view(request):
     return render(request, 'app/create_ticket.html', context={'form': form})
 
 
+@login_required
 def create_review_view(request):
     ticket_form = TicketForm()
     review_form = ReviewForm()
@@ -82,7 +83,6 @@ def create_review_view(request):
             review.ticket = ticket
             review.user = request.user
             review.save()
-            print("z", ticket, review)
             messages.success(request, "Votre ticket et le critique sont créés.")
             return redirect('create_review')
 
@@ -94,11 +94,26 @@ def create_review_view(request):
     return render(request, 'app/create_review.html', context=context)
 
 
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView
+@login_required
+def follow_view(request):
+    following_users = UserFollows.objects.filter(user=request.user.id)
+    users_followers = UserFollows.objects.filter(followed_user=request.user.id)
+
+    if request.POST:
+        form = UserFollows()
+        user_follow = User.objects.get(username=request.POST['following'])
+        form.user = request.user
+        form.followed_user = user_follow
+        form.save()
+        return redirect('follow')
+
+    context = {'following': following_users, 'followers': users_followers}
+    return render(request, 'app/follow.html', context=context)
 
 
-class RestrictedView(LoginRequiredMixin, TemplateView):
-    template_name = 'foo/restricted.html'
-    raise_exception = True
-    permission_denied_message = "Access interdit."
+def remove_following_user_view(request, id):
+
+    user = get_object_or_404(User, id=id)
+    remove_user = UserFollows.objects.get(user=request.user.id ,followed_user=user)
+    remove_user.delete()
+    return redirect('follow')

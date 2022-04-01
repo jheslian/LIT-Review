@@ -18,7 +18,8 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 from django.urls import path, include
-from app.views import signup_view, login_view, flux, create_review_view, create_ticket_view
+from app.views import signup_view, login_view, flux, create_review_view, create_ticket_view, follow_view, \
+    remove_following_user_view
 
 
 urlpatterns = [
@@ -29,6 +30,7 @@ urlpatterns = [
     path('flux/', flux, name='flux'),
     path('ticket/', create_ticket_view, name='create_ticket'),
     path('review/', create_review_view, name='create_review'),
-    path('i18n/', include('django.conf.urls.i18n')),
+    path('follow/', follow_view, name='follow'),
+    path('remove/<int:id>', remove_following_user_view, name='remove_following')
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
