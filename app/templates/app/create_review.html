@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load myfilters %}
+{% block title %} Créer une critique {% endblock %}
+
+{% block content %}
+    <div class="container w-75">
+        <form action="{% url 'create_review' %} " method="post" enctype="multipart/form-data"> {% csrf_token %}
+            <p class="fs-2">Livre / Article</p>
+            {% for field in ticket_form %}
+                {{ field.label }}
+                {{ field|addclass:'form-control mx-0 mb-3 p-1'}}
+            {% endfor %}
+            <hr class="mt-5 mb-5">
+
+            <p class="fs-2">Critique</p>
+            {% for field in review_form %}
+                {{ field.label }}
+                {{ field|addclass:'form-control mx-0 mb-3 p-1'}}
+            {% endfor %}
+            <button class="btn btn-outline-success float-end mb-5" type="submit">Envoyer</button>
+        </form>
+    </div>
+{% endblock %}
