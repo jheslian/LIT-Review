@@ -1,1 +1,14 @@
-posts
+{% extends 'base.html' %}
+
+{% load myfilters %}
+{% block content %}
+<div class="container w-75 p-5">
+    {% for instance in tickets_and_reviews %}
+        {% if instance|model_type == 'Ticket' %}
+            {% include 'app/partials/ticket_snippet.html' with ticket=instance %}
+        {% else %}
+            {% include 'app/partials/review_snippet.html' with review=instance %}
+        {% endif %}
+    {% endfor %}
+</div>
+{% endblock %}

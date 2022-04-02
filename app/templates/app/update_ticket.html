@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
+{% load static %}
 {% load myfilters %}
 {% block title %} Créer un ticket {% endblock %}
 
 {% block content %}
     <div class="container w-75 ">
-        <p class="text-center pt-5 pb-3">Créer un ticket</p>
-        <form action="{% url 'create_ticket' %} " method="post" enctype="multipart/form-data"> {% csrf_token %}
+        <p class="text-center pt-5 pb-3">Modifier votre ticket</p>
+        <form action="{% url 'update_ticket' ticket.id %}  " method="post" enctype="multipart/form-data"> {% csrf_token %}
+
             {% for field in form %}
                 {{ field.label }}
                 {{ field|addclass:'form-control mx-0 mb-3 p-1'}}
