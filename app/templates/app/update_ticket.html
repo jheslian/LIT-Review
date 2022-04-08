@@ -6,7 +6,7 @@
 {% block content %}
     <div class="container w-75 ">
         <p class="text-center pt-5 pb-3">Modifier votre ticket</p>
-        <form action="{% url 'update_ticket' ticket.id %}  " method="post" enctype="multipart/form-data"> {% csrf_token %}
+        <form action="{% url 'update_ticket' ticket_id %}  " method="post" enctype="multipart/form-data"> {% csrf_token %}
 
             {% for field in form %}
                 {{ field.label }}

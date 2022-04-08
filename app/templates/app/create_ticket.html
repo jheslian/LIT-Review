@@ -3,8 +3,8 @@
 {% block title %} Créer un ticket {% endblock %}
 
 {% block content %}
+    <p class="text-center pt-3 fs-5">Créer un ticket</p>
     <div class="container w-75 ">
-        <p class="text-center pt-5 pb-3">Créer un ticket</p>
         <form action="{% url 'create_ticket' %} " method="post" enctype="multipart/form-data"> {% csrf_token %}
             {% for field in form %}
                 {{ field.label }}

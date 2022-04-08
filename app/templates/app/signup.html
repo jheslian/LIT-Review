@@ -7,7 +7,7 @@
         <p class="text-center fs-3">Inscrivez-vous</p>
         <form action="{% url 'signup' %}" method="POST">{% csrf_token %}
             {% for field in form %}
-                {{ field|addclass:'form-control mx-0 mb-3'}}
+                {{ field|addclassplaceholder:'form-control mx-0 mb-3'}}
             {% endfor %}
             <div class="float-end">
                 <a href="{% url 'login' %}" class="btn btn-outline-secondary">Retour</a>

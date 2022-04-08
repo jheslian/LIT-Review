@@ -1,19 +1,19 @@
 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+<div class="modal fade" id="T{{ content_id }}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
      aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Désabonner</h5>
+                <h5 class="modal-title" id="staticBackdropLabel">{{extra|title}}</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Vous êtes sûr vous voulez désabonner {{ user.followed_user.username }}?
+                Vous êtes sûr vous voulez {{extra}} {{ content_name }}?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <a class="btn btn-danger float-end"
-                   href="{% url 'remove_following' user.followed_user.id %}">Désabonner</a>
+                   href="{% url content_url content_id %}">{{extra|title}}</a>
             </div>
         </div>
     </div>

@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 from app.views import signup_view, login_view, flux, create_ticket_view, create_ticket_and_review_view, follow_users_view, \
-    remove_following_user_view, posts_view, update_ticket, update_review
+    remove_following_user_view, posts_view, update_ticket, update_review, create_review, delete_ticket, delete_review
 
 
 urlpatterns = [
@@ -28,12 +28,15 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('signup/', signup_view, name='signup'),
     path('flux/', flux, name='flux'),
-    path('ticket/create/', create_ticket_and_review_view, name='create_ticket_review'),
-    path('review/create/', create_ticket_view, name='create_ticket'),
+    path('review/create/<int:ticket_id>', create_review, name='create_review'),
+    path('ticket_review/create/', create_ticket_and_review_view, name='create_ticket_review'),
+    path('ticket/create/', create_ticket_view, name='create_ticket'),
     path('follow/', follow_users_view, name='follow'),
     path('remove/<int:id>', remove_following_user_view, name='remove_following'),
     path('posts/', posts_view, name='posts'),
-    path('ticket/<int:ticket_id>/update', update_ticket, name='update_ticket'),
-    path('review/<int:ticket_id>/update', update_review, name='update_review'),
+    path('ticket/<int:id>/update', update_ticket, name='update_ticket'),
+    path('review/<int:review_id>/update', update_review, name='update_review'),
+    path('ticket/<int:ticket_id>/delete', delete_ticket, name='delete_ticket'),
+    path('review/<int:review_id>/delete', delete_review, name='delete_review'),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -2,13 +2,21 @@
 
 {% load myfilters %}
 {% block content %}
-<div class="container w-75 p-5">
-    {% for instance in tickets_and_reviews %}
-        {% if instance|model_type == 'Ticket' %}
-            {% include 'app/partials/ticket_snippet.html' with ticket=instance %}
+
+<div class="container w-75 ">
+<p class="text-center pt-5 fs-5">Vos posts</p>
+    <div class="container w-75 p-5">
+        {% if tickets_and_reviews %}
+            {% for instance in tickets_and_reviews %}
+                {% if instance|model_type == 'Ticket' %}
+                    {% include 'app/partials/posts_ticket_snippet.html' with ticket=instance %}
+                {% else %}
+                    {% include 'app/partials/posts_review_snippet.html' with review=instance %}
+                {% endif %}
+            {% endfor %}
         {% else %}
-            {% include 'app/partials/review_snippet.html' with review=instance %}
-        {% endif %}
-    {% endfor %}
+        <p class="text-center fs-3 text-muted">Créer un ticket ou une critique pour commencez.</p>
+    {% endif %}
+    </div>
 </div>
 {% endblock %}

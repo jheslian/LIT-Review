@@ -1,0 +1,36 @@
+{% load static %}
+{% load myfilters %}
+
+{% include 'partials/modal.html' with content_name=ticket.title|del_modal_ticket_name content_id=ticket.id content_url='delete_ticket' extra='supprimer' %}
+
+<div class="border p-4 my-4">
+    <a class="text-decoration-none text-dark" href="{% url 'create_review' ticket.id %}">
+
+        <p class="fst-italic text-muted">
+            {% if request.get_full_path == "/flux/" %}
+                {% if ticket.user == request.user %}
+                    Vous avez demandé une critique
+                {% else %}
+                    {{ ticket.user }} a demandé une critique
+                {% endif %}
+            {% else %}
+                {% if ticket.user == request.user %}
+                    Vous avez publié un ticket
+                {% else %}
+                    {{ ticket.user }} a publié un ticket
+                {% endif %}
+            {% endif %}
+
+        </p>
+        <p class="float-end">{{ ticket.time_created|date:"H:i, d F Y" }}</p>
+        <p class="py-0">{{ ticket.title }}</p>
+        <p class="py-0">{{ ticket.description }}</p>
+        {% if ticket.image %}
+            <img class="" width="200" height="300"
+                 src="{% static 'images/media/' %}{{ ticket.image }}" alt="{{ ticket.title }}"/>
+        {% endif %}
+        {% include 'app/partials/update_delete_buttons.html' with content_id=ticket.id content_url='update_ticket' %}
+    </a>
+</div>
+
+
