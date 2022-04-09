@@ -14,6 +14,7 @@ from django.db.models import Q
 # Create your views here.
 
 def login_view(request):
+    """ Login user """
     form = AuthenticationForm()
     if request.user.is_authenticated:
         return redirect('flux')
@@ -37,6 +38,7 @@ def login_view(request):
 
 
 def signup_view(request):
+    """ Create user account """
     form = SignupForm()
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -49,6 +51,7 @@ def signup_view(request):
 
 @login_required
 def flux(request):
+    """ Main page - The tickets and reviews of the user itself and user the user follows """
     try:
         users_followers = UserFollows.objects.filter(user=request.user)
         users = []
@@ -67,6 +70,7 @@ def flux(request):
 
 @login_required
 def create_ticket_and_review_view(request):
+    """ Create ticket and review at the same time. """
     ticket_form = TicketForm()
     review_form = ReviewForm()
 
@@ -97,6 +101,7 @@ def create_ticket_and_review_view(request):
 
 @login_required
 def create_ticket_view(request):
+    """ Create a ticket """
     form = TicketForm()
     if request.method == 'POST':
         form = TicketForm(request.POST, request.FILES)
@@ -114,6 +119,7 @@ def create_ticket_view(request):
 
 @login_required
 def follow_users_view(request):
+    """ Follow a user and get user followers """
     following_users = UserFollows.objects.filter(user=request.user.id)
     users_followers = UserFollows.objects.filter(followed_user=request.user.id)
     if request.POST:
@@ -140,6 +146,7 @@ def follow_users_view(request):
 
 @login_required
 def remove_following_user_view(request, id):
+    """ Remove a follower """
     user = get_object_or_404(User, id=id)
     remove_user = UserFollows.objects.get(user=request.user.id, followed_user=user)
     remove_user.delete()
@@ -148,6 +155,7 @@ def remove_following_user_view(request, id):
 
 @login_required
 def posts_view(request):
+    """ Get tickets and reviews for the post page"""
     tickets = Ticket.objects.filter(Q(user=request.user))
     reviews = Review.objects.filter(Q(user=request.user))
 
@@ -158,6 +166,7 @@ def posts_view(request):
 
 @login_required
 def update_ticket(request, id):
+    """ Update a user ticket """
     context = {}
     ticket = get_object_or_404(Ticket, id=int(id))
     context['form'] = TicketForm(instance=ticket)
@@ -175,6 +184,7 @@ def update_ticket(request, id):
 
 @login_required
 def update_review(request, review_id):
+    """ Update a user review"""
     context = {}
     review = get_object_or_404(Review, id=review_id)
     context['form'] = ReviewForm(instance=review)
@@ -192,6 +202,7 @@ def update_review(request, review_id):
 
 @login_required
 def create_review(request, ticket_id):
+    """ Create a review of a ticket """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     if ticket.has_review:
         messages.error(request, "Ce ticket à déjà une critique.")
@@ -219,6 +230,7 @@ def create_review(request, ticket_id):
 
 @login_required
 def delete_ticket(request, ticket_id):
+    """ Delete user ticket """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket.delete()
     messages.success(request, f"Votre ticket {ticket.title} est bien supprimé.")
@@ -227,6 +239,7 @@ def delete_ticket(request, ticket_id):
 
 @login_required
 def delete_review(request, review_id):
+    """ Delete user review """
     review = get_object_or_404(Review, id=review_id)
     ticket = get_object_or_404(Ticket, id=review.ticket.id)
     ticket.has_review = False
