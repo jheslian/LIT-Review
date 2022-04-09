@@ -11,9 +11,9 @@
 	- `python -V` : command to check the version python if its installed
 	- verify that you have the venv module : `python -m venv --help` if not please check https://www.python.org/downloads/. You could also use any other virtual environment to run the program(**if you opted to use other virtual environment the next commands are not suitable to run the program**)
 	- `git --version` : to check your git version if its installed or you could download it at https://git-scm.com/downloads
- 1. Clone the repository on the terminal or command prompt : `git clone https://github.com/jheslian/projet7-algo.git`
+ 1. Clone the repository on the terminal or command prompt : `git clone https://github.com/jheslian/LIT-Review.git`
  2. Create a virtual environment with "venv"  
-	 - `cd swiss-tournament` :  to access the folder 
+	 - `cd LIT-Review` :  to access the folder 
 	 - python -m venv ***environment name*** : to create the virtual environment - exemple: `python -m venv env`
 3. Activate the virtual environment:
 	for unix or macos:
