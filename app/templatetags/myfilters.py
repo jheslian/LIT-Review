@@ -6,12 +6,12 @@ register = template.Library()
 
 @register.filter()
 def addclass(value, class_name):
-    return value.as_widget(attrs={'class': class_name})
+    return value.as_widget(attrs={"class": class_name})
 
 
 @register.filter()
 def addclassplaceholder(value, class_name):
-    return value.as_widget(attrs={'class': class_name, 'placeholder': value.label})
+    return value.as_widget(attrs={"class": class_name, "placeholder": value.label})
 
 
 @register.filter
@@ -22,14 +22,14 @@ def model_type(value):
 @register.filter()
 def star(value):
     if value != 0:
-        value = value * u"\u2605"
-        return f' - {value}'
-    return ''
+        value = value * "\u2605"
+        return f" - {value}"
+    return ""
 
 
 @register.simple_tag(takes_context=True)
 def page_name(context, user, has_review):
-    if context['user'] == user:
+    if context["user"] == user:
         if has_review:
             return "Ticket - Vous"
         return "Vous avez publié un ticket"
@@ -38,24 +38,33 @@ def page_name(context, user, has_review):
 
 @register.filter(is_safe=True)
 def convert_to_radio_btns(value):
-    content = ''
+    content = ""
     for i in range(6):
-        print('ze', i)
-        checked = ''
+        print("ze", i)
+        checked = ""
         if value == i:
-            checked = 'checked'
+            checked = "checked"
         content += (
-                '<div><input type="radio" value="' + str(i) + '" name="rating" id="' + str(i) + '" ' + checked +
-                '> <label for="' + str(i) + '"> - ' + str(i) + '</label></div>'
+            '<div><input type="radio" value="'
+            + str(i)
+            + '" name="rating" id="'
+            + str(i)
+            + '" '
+            + checked
+            + '> <label for="'
+            + str(i)
+            + '"> - '
+            + str(i)
+            + "</label></div>"
         )
     return mark_safe(content)
 
 
 @register.filter
 def del_modal_ticket_name(instance):
-    return f'le ticket \"{str(instance).__str__()}\"'
+    return f'le ticket "{str(instance).__str__()}"'
 
 
 @register.filter
 def del_modal_review_name(instance):
-    return f'votre commentaire \"{str(instance).__str__()}\"'
+    return f'votre commentaire "{str(instance).__str__()}"'
