@@ -85,8 +85,8 @@ def create_ticket_and_review_view(request):
             review.ticket.has_review = True
             review.user = request.user
             review.save()
-            messages.success(request, "Votre ticket et le critique sont créés.")
-            return redirect("create_ticket_review")
+            messages.success(request, "Le ticket et le critique sont créés.")
+            return redirect("posts")
 
     context = {"ticket_form": ticket_form, "review_form": review_form}
 
@@ -104,7 +104,7 @@ def create_ticket_view(request):
             ticket.user = request.user
             ticket.save()
             messages.success(request, "Votre ticket est créé.")
-            return redirect("create_ticket")
+            return redirect("posts")
     context = {"form": form}
     return render(request, "app/create_ticket.html", context=context)
 
@@ -169,9 +169,9 @@ def update_ticket(request, id):
         if update_form.is_valid():
             update_form.save()
             messages.success(request, "Votre ticket est modifié.")
-            return redirect("update_ticket", id=ticket.id)
+            return redirect("posts")
 
-    context["ticket_id"] = ticket.id
+    context["ticket"] = ticket
 
     return render(request, "app/update_ticket.html", context=context)
 
@@ -187,7 +187,7 @@ def update_review(request, review_id):
         if update_form.is_valid():
             update_form.save()
             messages.success(request, "Votre ticket est modifié.")
-            return redirect("update_review", review_id=review.id)
+            return redirect("posts")
 
     context["review"] = review
 
@@ -212,7 +212,7 @@ def create_review(request, ticket_id):
             ticket.has_review = True
             ticket.save()
             messages.success(request, "Votre critique est crée.")
-            return redirect("update_review", review_id=review.id)
+            return redirect("posts")
 
     context = {"ticket": ticket, "form": form}
 

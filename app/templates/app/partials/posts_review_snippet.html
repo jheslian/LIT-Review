@@ -6,9 +6,7 @@
     {% if request.user == review.user %}
         <p class="fst-italic text-muted">Vous avez publié une critique</p>
     {% else %}
-
         <p class="fst-italic text-muted">{{ review.user }} a publié une critique</p>
-
     {% endif %}
     <p class="float-end">{{ review.time_created|date:"H:i, d F Y" }}</p>
     <p class="pt-3 fs-5">{{ review.headline }} {{ review.rating|star }}</p>

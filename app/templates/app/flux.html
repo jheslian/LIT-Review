@@ -1,24 +1,24 @@
 {% extends 'base.html' %}
 {% load myfilters %}
+{% block title %} Flux {% endblock %}
 {% block content %}
-<div class="container w-75 ">
-    <div class="d-flex justify-content-evenly pt-5 pb-2">
-        <a href="{% url 'create_ticket' %}" class="btn btn-outline-primary">Demander une critique</a>
-        <a href="{% url 'create_ticket_review' %}" class="btn btn-outline-success">Créer une critique</a>
-    </div>
-    <div class="container w-75 p-5">
-    {% if content %}
-        {% for instance in content %}
-            {% if instance|model_type == 'Ticket' %}
-                {% include 'app/partials/posts_ticket_snippet.html' with ticket=instance %}
+    <div class="container w-75 ">
+        <div class="d-flex justify-content-evenly pt-5 pb-2">
+            <a href="{% url 'create_ticket' %}" class="btn btn-outline-primary">Demander une critique</a>
+            <a href="{% url 'create_ticket_review' %}" class="btn btn-outline-success">Créer une critique</a>
+        </div>
+        <div class="container w-75 p-5">
+            {% if content %}
+                {% for instance in content %}
+                    {% if instance|model_type == 'Ticket' %}
+                        {% include 'app/partials/posts_ticket_snippet.html' with ticket=instance %}
+                    {% else %}
+                        {% include 'app/partials/posts_review_snippet.html' with review=instance %}
+                    {% endif %}
+                {% endfor %}
             {% else %}
-                {% include 'app/partials/posts_review_snippet.html' with review=instance %}
+                <p class="text-center fs-3 text-muted">Votre flux est vide, veuillez créer un ticket ou abonées quel q'un</p>
             {% endif %}
-        {% endfor %}
-    {% else %}
-        <p class="text-center fs-3 text-muted">Votre flux est vide, veuillez créer un ticket ou abonées quel q'un</p>
-    {% endif %}
-</div>
-</div>
-
+        </div>
+    </div>
 {% endblock %}

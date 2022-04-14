@@ -11,6 +11,8 @@ class SignupForm(UserCreationForm):
 
 
 class TicketForm(forms.ModelForm):
+    image = forms.ImageField(required=False, widget=forms.FileInput)
+
     class Meta:
         model = Ticket
         fields = ["title", "description", "image"]
