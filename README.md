@@ -39,7 +39,7 @@
 	for windows:
 	- ***environment name***\Scripts\activate.bat - ex: `env\Scripts\activate.bat`
 4. Install the packages with pip: `pip install -r requirements.txt`	
-5  Migrate the tables to database:
+5.  Migrate the tables to database:
     	for unix or macos: `python3 manage.py migrate`
 	for windows: `py manage.py migrate`
 6. Run the program :
