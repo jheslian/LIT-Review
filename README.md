@@ -4,7 +4,7 @@
 ## Objectives:
 
 - A user could ask for a review of a particular book or article.
-- A user could search for an interesting articles or books to read, based on the reviews of others.
+- A user could post a review of a ticket.
 
 ## Functionnalities:
 1. Sign up - create an account
