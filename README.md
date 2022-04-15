@@ -1,9 +1,27 @@
+
 # An application that request or publish reviews of books or articles.
 
 ## Objectives:
 
 - A user could ask for a review of a particular book or article.
 - A user could search for an interesting articles or books to read, based on the reviews of others.
+
+## Functionnalities:
+1. Sign up - create an account
+2. Log in - User log in
+3. Flux - The main page of the application where:
+	- They can see the tickets and reviews of all users they follow
+	- They should also see their own tickets and reviews, as well as any reviews in response to their own tickets 
+	- They can post their ticket requesting a review for a book or literature article
+	- The users who follow them can then submit their reviews in response to the ticket.
+	- Users should also be able to post reviews for books and articles that do not have a ticket yet.
+4. Posts page where:
+	- User can see their own tickets and reviews separately
+	- User can edit, and delete their own tickets and reviews
+5. Follow page where:
+	 - Users will be able to follow other users and should also have the option to unfollow them
+	 - Users will be able to see who follows them
+6. Log out 
 
 
 ## Getting started:
