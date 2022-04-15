@@ -40,9 +40,9 @@
 	- ***environment name***\Scripts\activate.bat - ex: `env\Scripts\activate.bat`
 4. Install the packages with pip: `pip install -r requirements.txt`	
 5.  Migrate the tables to database:
-    	for unix or macos: `python3 manage.py migrate`
-	for windows: `py manage.py migrate`
+	- for unix or macos: `python3 manage.py migrate`
+	- for windows: `py manage.py migrate`
 6. Run the program :
-	for unix or macos: `python3 manage.py runserver`
-	for windows: `py manage.py runserver`
+	- for unix or macos: `python3 manage.py runserver`
+	- for windows: `py manage.py runserver`
 	***Note*** : The default port will open at 8000, if you are already using it use another port  like 9000 `python3 manage.py runserver 9000` for mac as exemple
